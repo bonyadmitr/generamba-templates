@@ -9,9 +9,9 @@
 import UIKit
 
 class {{ module_info.name }}ModuleInitializer: NSObject {
-
-    static func initialize<T: UIViewController>(_ vc: T.Type) -> UIViewController {
-        let viewController = {{ module_info.name }}ViewController(nibName: String(describing: vc), bundle: nil)
+    static var viewController: UIViewController {
+        let nibName = String(describing: {{ module_info.name }}ViewController.self)
+        let viewController = {{ module_info.name }}ViewController(nibName: nibName, bundle: nil)
         let configurator = {{ module_info.name }}ModuleConfigurator()
         configurator.configureModuleForViewInput(viewInput: viewController)
         return viewController
