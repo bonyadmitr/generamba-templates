@@ -1,0 +1,29 @@
+## Template information section
+name: "viper_dip"
+summary: "Swift VIPER with Dip DI"
+author: "Bondar Yaroslav"
+version: "1.0.0"
+license: "MIT"
+
+## The declarations for code files
+
+code_files:
+
+## Assembly
+- {name: Assembly/ModuleAssembly.swift, path: Code/Assembly/assembly.swift.liquid}
+
+## View layer
+- {name: View/ViewController.swift, path: Code/View/viewcontroller.swift.liquid}
+- {name: View/ViewIO.swift,  path: Code/View/view_input_output.swift.liquid}
+
+## Presenter layer
+- {name: Presenter/Presenter.swift, path: Code/Presenter/presenter.swift.liquid}
+- {name: Presenter/ModuleInput.swift, path: Code/Presenter/module_input.swift.liquid}
+
+## Interactor layer
+- {name: Interactor/Interactor.swift, path: Code/Interactor/interactor.swift.liquid}
+- {name: Interactor/InteractorIO.swift, path: Code/Interactor/interactor_input_output.swift.liquid}
+
+## Router layer
+- {name: Router/Router.swift, path: Code/Router/router.swift.liquid}
+- {name: Router/RouterInput.swift, path: Code/Router/router_input.swift.liquid}
