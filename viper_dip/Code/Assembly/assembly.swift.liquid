@@ -1,0 +1,43 @@
+//
+//  {{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import DipApplication
+import ViperKit
+
+// TODO: copy to AssembliesFactory
+// container.register(.eagerSingleton) { {{ module_info.name }}ModuleAssembly(withCollaborator: $0) }
+// TODO: add key "dipTag" type "Nil" in "User Defined Runtime Attributes" in storyboard
+final class {{ module_info.name }}ModuleAssembly: BaseViperAssembly {
+    let tag: String? = nil
+
+    override init(withCollaborator collaborator: RootViperAssembly) {
+        super.init(withCollaborator: collaborator)
+        
+        container.register(tag: tag) { {{ module_info.name }}ViewController() }
+            .implements({{ module_info.name }}ViewInput.self, TransitionHandler.self)
+            .resolvingProperties { (container, controller) in
+                controller.output = try container.resolve()
+                controller.moduleInput = try container.resolve() as {{ module_info.name }}ModuleInput
+            }
+        container.register { {{ module_info.name }}Presenter(interactor: $0, router: $1) }
+            .implements({{ module_info.name }}ModuleInput.self, {{ module_info.name }}ViewOutput.self, {{ module_info.name }}InteractorOutput.self)
+            .resolvingProperties { [unowned self] (container, presenter) in
+                presenter.view = try container.resolve(tag: self.tag)
+            }
+        container.register { {{ module_info.name }}Router() }
+            .implements({{ module_info.name }}RouterInput.self)
+            .resolvingProperties { [unowned self] (container, router) in
+                router.transitionHandler = try container.resolve(tag: self.tag)
+            }
+        container.register { {{ module_info.name }}Interactor() }
+            .implements({{ module_info.name }}InteractorInput.self)
+            .resolvingProperties { (container, interactor) in
+                interactor.output = try container.resolve()
+            }
+    }
+}

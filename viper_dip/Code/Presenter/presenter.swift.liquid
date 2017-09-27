@@ -1,0 +1,40 @@
+//
+//  {{ module_info.file_name }}
+//  {{ module_info.project_name }}
+//
+//  Created by {{ developer.name }} on {{ date }}.
+//  Copyright © {{ year }} {{ developer.company }}. All rights reserved.
+//
+
+import Foundation
+
+/// Binds {{ module_info.name }} usecase UI to business logic and manages transition logic between modules.
+final class {{ module_info.name }}Presenter {
+    weak var view: {{ module_info.name }}ViewInput?
+    private let interactor: {{ module_info.name }}InteractorInput
+    private let router: {{ module_info.name }}RouterInput
+
+    init(interactor: {{ module_info.name }}InteractorInput, router: {{ module_info.name }}RouterInput) {
+        self.interactor = interactor
+        self.router = router
+    }
+}
+
+// MARK: - View Output
+extension {{ module_info.name }}Presenter: {{ module_info.name }}ViewOutput {
+    func viewIsReady() {
+        view?.setupInitialState()
+    }
+}
+
+// MARK: - Interactor Output
+extension {{ module_info.name }}Presenter: {{ module_info.name }}InteractorOutput {
+    func failed(with error: Error) {
+        view?.show(error: error)
+    }
+}
+
+// MARK: - Module Input
+extension {{ module_info.name }}Presenter: {{ module_info.name }}ModuleInput {
+    
+}
